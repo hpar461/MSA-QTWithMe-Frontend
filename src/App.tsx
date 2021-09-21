@@ -1,24 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createStyles, createTheme, CssBaseline, makeStyles, Theme, ThemeProvider } from "@material-ui/core";
+import "@fontsource/inter";
+
+import Header from "./Components/Header";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    app: {
+      textAlign: "center",
+      fontfamily: "Inter",
+    },
+  })
+);
 
 function App() {
+  const styles = useStyles();
+
+  const theme = createTheme({
+    typography: {
+      fontFamily: "Inter",
+    },
+    palette: {
+      primary: {
+        main: "#181818",
+      },
+      secondary: {
+        main: "#f5f3ec",
+      },
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.app}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Header />
+        
+      </ThemeProvider>
     </div>
   );
 }

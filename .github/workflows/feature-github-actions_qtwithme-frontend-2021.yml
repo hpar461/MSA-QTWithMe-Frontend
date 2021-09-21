@@ -6,6 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - qtwithme-frontend-2021
 on:
   push:
     branches:
+      - main
       - feature/github-actions
   workflow_dispatch:
 
@@ -14,7 +15,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v2
+      # checkout the repo
+      - name: "Checkout Github Action"
+        uses: actions/checkout@v2
 
       - name: Set up Node.js version
         uses: actions/setup-node@v1
@@ -53,4 +56,4 @@ jobs:
           app-name: 'qtwithme-frontend-2021'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_23259DE1E18A4D0FA280B1868FC7469F }}
-          package: .
+          package: "./build"

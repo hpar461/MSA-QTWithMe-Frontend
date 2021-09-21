@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     app: {
       textAlign: "center",
-      fontfamily: "Inter",
     },
   })
 );
@@ -16,12 +15,12 @@ function App() {
   const styles = useStyles();
 
   const theme = createTheme({
-    typography: {
-      fontFamily: "Inter",
-    },
+    // typography: {
+    //   fontFamily: "Inter",
+    // },
     palette: {
       primary: {
-        main: "#181818",
+        main: "#4b4a48",
       },
       secondary: {
         main: "#f5f3ec",

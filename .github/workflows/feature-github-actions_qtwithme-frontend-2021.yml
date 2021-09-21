@@ -32,7 +32,7 @@ jobs:
       - name: Run Azure webapp deploy action using publish profile credentials
         uses: azure/webapps-deploy@v2
         with:
-        app-name: 'qtwithme-frontend-2021'
-        slot-name: Production
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_23259DE1E18A4D0FA280B1868FC7469F }}
-        package: ./build
+          app-name: 'qtwithme-frontend-2021'
+          slot-name: Production
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_23259DE1E18A4D0FA280B1868FC7469F }}
+          package: ./build

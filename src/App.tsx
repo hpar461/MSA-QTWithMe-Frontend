@@ -1,5 +1,4 @@
 import { createStyles, createTheme, CssBaseline, makeStyles, Theme, ThemeProvider } from "@material-ui/core";
-import "@fontsource/inter";
 
 import Header from "./Components/Header";
 
@@ -15,9 +14,6 @@ function App() {
   const styles = useStyles();
 
   const theme = createTheme({
-    // typography: {
-    //   fontFamily: "Inter",
-    // },
     palette: {
       primary: {
         main: "#4b4a48",

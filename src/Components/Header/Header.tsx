@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { LOGIN } from "../../api/Mutations";
 import { Login } from "../../api/__generated__/Login";
 import { Self_self } from "../../api/__generated__/Self";
@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const CLIENT_ID = "c42cc58d3b1e7d54d853";
 
 function Header({ user }: {user: Self_self | undefined}) {
+  const history = useHistory();
   const classes = useStyles();
   const query = new URLSearchParams(useLocation().search);
 
@@ -54,18 +55,16 @@ function Header({ user }: {user: Self_self | undefined}) {
   useEffect(() => {
     const loginMethod = async () => {
       const code = query.get("code");
-      console.log(code);
       if (code != null) {
         try {
           const { data } = await login({ variables: { code } });
           if (data != null) {
-            console.log("jwt: ", data.login.jwt)
             localStorage.setItem("token", data.login.jwt);
-            console.log(localStorage.getItem("token"));
           }
         } catch (e) {
           console.log(e);
         }
+        history.push("/");
       }
     };
     loginMethod();
@@ -73,6 +72,7 @@ function Header({ user }: {user: Self_self | undefined}) {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    history.push("/");
   }
 
   return (

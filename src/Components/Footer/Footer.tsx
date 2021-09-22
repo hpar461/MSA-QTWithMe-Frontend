@@ -1,26 +1,37 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import React from 'react';
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      position: "fixed",
-      bottom: 0,
       width: "100%",
-      height: 60,
+      marginTop: "auto",
+      minHeight: "50px",
+      
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+
+      backgroundColor: "#383736",
       textAlign: "center",
-      fontSize: "12px",
-      color: "white",
     },
+    text: {
+      flex: 1,
+      fontSize: "14px",
+      color: "#f2f2f2",
+      textTransform: "uppercase",
+    }
   })
-});
+);
 
 function Footer() {
   const styles = useStyles();
 
   return (
-    <footer>
-      
+    <footer className={styles.root}>
+      <div className={styles.text}>
+        Copyright © Hyungsang Park, 2021, All Rights Reserved
+      </div>
     </footer>
   );
 }

@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { createStyles, createTheme, CssBaseline, makeStyles, Theme, ThemeProvider } from "@material-ui/core";
 import { Route, Switch } from "react-router";
-import { QTS, SELF } from "./api/Queries";
-import { QT as QT_TYPE } from "./api/__generated__/QT";
-import { QTs } from "./api/__generated__/QTs";
+import { useLocation } from "react-router-dom";
+import { SELF } from "./api/Queries";
 import { Self } from "./api/__generated__/Self";
+import Footer from "./Components/Footer/Footer";
 
 import Header from "./Components/Header/Header";
 import MainPage from "./MainPage";
@@ -12,6 +12,10 @@ import MainPage from "./MainPage";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     app: {
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
       textAlign: "center",
     },
   })
@@ -31,19 +35,15 @@ function App() {
     },
   });
 
-  // const {loading, error, data } = useQuery<QTs>(QTS);
+  const { data } = useQuery<Self>(SELF);
 
-  const {loading, error, data } = useQuery<Self>(SELF);
-
-  console.log("loading: ", loading);
-  console.log("error: ", error);
-  console.log("data: ", data);
+  const code = new URLSearchParams(useLocation().search).get("code");
 
   return (
     <div className={styles.app}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Header user={data?.self} />
+        <Header user={data?.self} code={code} />
         <Switch>
           <Route path="/write-qt">
 
@@ -52,6 +52,7 @@ function App() {
             <MainPage />
           </Route>
         </Switch>
+        <Footer />
       </ThemeProvider>
     </div>
   );

@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { LOGIN } from "../../api/Mutations";
 import { Login } from "../../api/__generated__/Login";
 import { Self_self } from "../../api/__generated__/Self";
@@ -21,6 +21,8 @@ import { Self_self } from "../../api/__generated__/Self";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      width: "100%",
+      minHeight: "64px",
       flexDirection: "row",
       justifyContent: "space-between",
     },
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
     },
     loginButton: {
+      fontSize: "16px",
     },
     title: {
       flex: 1,
@@ -36,25 +39,25 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     userInformation: {
       display: "flex",
-      marginLeft: "20px",
     },
   })
 );
 
 const CLIENT_ID = "c42cc58d3b1e7d54d853";
 
-function Header({ user }: {user: Self_self | undefined}) {
+export interface IHeaderProps {
+  user: Self_self | undefined;
+  code: string | null;
+}
+
+function Header({ user, code }: IHeaderProps) {
   const history = useHistory();
   const classes = useStyles();
-  const query = new URLSearchParams(useLocation().search);
 
   const [login] = useMutation<Login>(LOGIN);
 
-  console.log("User: ", user);
-  
   useEffect(() => {
     const loginMethod = async () => {
-      const code = query.get("code");
       if (code != null) {
         try {
           const { data } = await login({ variables: { code } });
@@ -62,6 +65,9 @@ function Header({ user }: {user: Self_self | undefined}) {
             localStorage.setItem("token", data.login.jwt);
           }
         } catch (e) {
+          alert(
+            "Login Failed: Possibly due to database cool reboot. Please retry after a couple of minutes."
+          );
           console.log(e);
         }
         history.push("/");
@@ -74,7 +80,7 @@ function Header({ user }: {user: Self_self | undefined}) {
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.reload();
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -95,14 +101,17 @@ function Header({ user }: {user: Self_self | undefined}) {
             <Button
               color="inherit"
               className={classes.loginButton}
-              href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`}>
-                Login
-                </Button>
+              href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`}
+            >
+              Login
+            </Button>
           ) : (
             <div className={classes.userInformation}>
               <Hidden smDown>
                 <Avatar alt="user-avatar" src={user.imageURI} />
-                <Button color="inherit" onClick={handleLogout}>{user.name}</Button>
+                <Button color="inherit" onClick={handleLogout}>
+                  {user.name}
+                </Button>
               </Hidden>
             </div>
           )}

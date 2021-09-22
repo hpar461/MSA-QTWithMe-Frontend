@@ -71,6 +71,10 @@ function Header({ user }: {user: Self_self | undefined}) {
     loginMethod();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -97,7 +101,7 @@ function Header({ user }: {user: Self_self | undefined}) {
             <div className={classes.userInformation}>
               <Hidden smDown>
                 <Avatar alt="user-avatar" src={user.imageURI} />
-                <Button color="inherit" href="/submit">{user.name}</Button>
+                <Button color="inherit" onClick={handleLogout}>{user.name}</Button>
               </Hidden>
             </div>
           )}

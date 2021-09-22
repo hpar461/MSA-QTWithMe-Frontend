@@ -59,7 +59,9 @@ function Header({ user }: {user: Self_self | undefined}) {
         try {
           const { data } = await login({ variables: { code } });
           if (data != null) {
+            console.log("jwt: ", data.login.jwt)
             localStorage.setItem("token", data.login.jwt);
+            console.log(localStorage.getItem("token"));
           }
         } catch (e) {
           console.log(e);

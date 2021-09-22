@@ -43,7 +43,7 @@ function App() {
     <div className={styles.app}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Header user={/*data?.self*/ undefined} />
+        <Header user={data?.self} />
         <Switch>
           <Route path="/write-qt">
 

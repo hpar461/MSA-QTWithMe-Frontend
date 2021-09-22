@@ -13,8 +13,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-  // uri: "https://qtwithme-backend-graphql.azurewebsites.net/graphql/",
-  uri: "https://localhost:5001/graphql/",
+  uri: "https://qtwithme-backend-graphql.azurewebsites.net/graphql/",
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -26,9 +25,6 @@ const authLink = setContext((_, { headers }) => {
       ...headers,
       authorization: token ? `Bearer ${token}` : "",
     },
-    // fetchOptions: {
-    //   mode: "no-cors",
-    // }
   };
 });
 

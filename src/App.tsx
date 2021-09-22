@@ -4,10 +4,10 @@ import { Route, Switch } from "react-router";
 import { useLocation } from "react-router-dom";
 import { SELF } from "./api/Queries";
 import { Self } from "./api/__generated__/Self";
-import Footer from "./Components/Footer/Footer";
-
-import Header from "./Components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
 import MainPage from "./MainPage";
+import WriteQTPage from "./WriteQTPage";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,8 +45,8 @@ function App() {
         <CssBaseline />
         <Header user={data?.self} code={code} />
         <Switch>
-          <Route path="/write-qt">
-
+          <Route path="/writeQT">
+            <WriteQTPage />
           </Route>
           <Route path="/">
             <MainPage />

@@ -1,8 +1,9 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
-import { QTS } from "./api/Queries";
-import { QTs } from "./api/__generated__/QTs";
-import PassageInput from "./Components/PassageInput/PassageInput";
+import { useHistory } from "react-router-dom";
+import { ADD_QT } from "./api/Mutations";
+import { AddQT } from "./api/__generated__/AddQT";
+import PassageInput from "./components/PassageInput/PassageInput";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,15 +24,14 @@ const useStyles = makeStyles((theme: Theme) =>
     qt: {
       marginTop: "10px",
       marginBottom: "20px",
-    }
+    },
   })
 );
 
-
 function MainPage() {
   const styles = useStyles();
-
-  // const { data } = useQuery<QTs>(QTS);
+  const history = useHistory();
+  const [ createQT ] = useMutation<AddQT>(ADD_QT);
 
   return (
     <div className={styles.root}>
@@ -42,7 +42,23 @@ function MainPage() {
         <Typography variant="h5" className={styles.subheading}>
           Share your daily portion of the Bible.
         </Typography>
-        <PassageInput onClick={(s: string) => console.log(s)} />
+        <PassageInput
+          onClick={async (passage: string) => {
+            // To be replaced with query logic!
+            console.log(passage);
+            try {
+              const { data } = await createQT({ variables: { passage }});
+              
+              history.push(`/writeQT/?qtId=${data?.addQT.id}`);
+
+              console.log(`id: ${data?.addQT.id!}`);
+              console.log("passage: ", data?.addQT.passage);
+              console.log("passageText: ", data?.addQT.passageText);
+            } catch (e) {
+              console.log(e);
+            }
+          }}
+        />
         {/* {data?.qTs?.nodes?.map(qt => (
           <div className={styles.qt}>
             <Typography>id: {qt.id}</Typography>

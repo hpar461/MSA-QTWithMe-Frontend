@@ -84,35 +84,44 @@ function PassageInput({ onClick }: IPassageInput) {
           label="Chapter"
           type="number"
           className={styles.inputField}
-          onChange={e => {setStartChapter(parseInt(e.target.value))}}
-          ></TextField>
+          onChange={(e) => {
+            setStartChapter(parseInt(e.target.value));
+          }}
+        ></TextField>
 
         <TextField
           variant="outlined"
           label="Verse"
           type="number"
           className={styles.inputField}
-          onChange={e => {setStartVerse(parseInt(e.target.value))}}
+          onChange={(e) => {
+            setStartVerse(parseInt(e.target.value));
+          }}
         ></TextField>
 
-        <Typography variant="h4" style={{ marginLeft: 5, marginRight: 5 }}>to</Typography>
+        <Typography variant="h4" style={{ marginLeft: 5, marginRight: 5 }}>
+          to
+        </Typography>
 
         <TextField
           variant="outlined"
           label="Chapter"
           type="number"
           className={styles.inputField}
-          onChange={e => {setEndChapter(parseInt(e.target.value))}}
-          ></TextField>
+          onChange={(e) => {
+            setEndChapter(parseInt(e.target.value));
+          }}
+        ></TextField>
 
         <TextField
           variant="outlined"
           label="Verse"
           type="number"
           className={styles.inputField}
-          onChange={e => {setEndVerse(parseInt(e.target.value))}}
+          onChange={(e) => {
+            setEndVerse(parseInt(e.target.value));
+          }}
         ></TextField>
-
       </FormControl>
 
       <Button
@@ -120,11 +129,23 @@ function PassageInput({ onClick }: IPassageInput) {
         variant="outlined"
         className={styles.button}
         size="large"
-        onClick={() => onClick(`${book}+${startChapter}:${startVerse}-${endChapter}:${endVerse}`)}
+        onClick={() => {
+          if (
+            startChapter < endChapter ||
+            (startChapter === endChapter && startVerse <= endVerse)
+          ) {
+            onClick(
+              `${book}+${startChapter}:${startVerse}-${endChapter}:${endVerse}`
+            );
+          } else {
+            alert(
+              "The end chapter and verse must be after the starting chapter and verse!"
+            );
+          }
+        }}
       >
         Write!
       </Button>
-
     </div>
   );
 }

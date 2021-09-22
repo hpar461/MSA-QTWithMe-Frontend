@@ -65,6 +65,7 @@ function Header({ user }: {user: Self_self | undefined}) {
           console.log(e);
         }
         history.push("/");
+        window.location.reload();
       }
     };
     loginMethod();
@@ -72,7 +73,7 @@ function Header({ user }: {user: Self_self | undefined}) {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    history.push("/");
+    window.location.reload();
   }
 
   return (

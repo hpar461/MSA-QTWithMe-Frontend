@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Getting Started with QTWithMe
+
+GitHub Repo for frontend (web app) of QTWithMe for MSA Phase 2 Assignment.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -39,13 +39,11 @@ function MainPage() {
   const styles = useStyles();
   const history = useHistory();
   const [ createQT ] = useMutation<AddQT>(ADD_QT);
-  const { data } = useQuery<QTs>(QTS);
+  const { data, refetch } = useQuery<QTs>(QTS);
   
   useEffect(() => {
-    
+    refetch();
   }, []);
-
-  // const modifiedDate = Date.parse(data?.qTs?.nodes?.modified);
 
   return (
     <div className={styles.root}>
@@ -73,7 +71,7 @@ function MainPage() {
             subheading={`${qt.user.name}, ${new Date(qt.modified).toLocaleString("en-NZ")}`}
             content={qt.content === "" ? "No Content" : qt.content}
             />
-          ))};
+          ))}
         </div>
       </div>
     </div>

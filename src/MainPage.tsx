@@ -1,9 +1,13 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
+import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { ADD_QT } from "./api/Mutations";
+import { QTS } from "./api/Queries";
 import { AddQT } from "./api/__generated__/AddQT";
+import { QTs } from "./api/__generated__/QTs";
 import PassageInput from "./components/PassageInput/PassageInput";
+import QTCard from "./components/QTCard/QTCard";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,17 +17,20 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: "90%",
     },
     greetings: {
-      marginTop: "40px",
+      marginTop: 40,
     },
     heading: {
-      marginBottom: "15px",
+      marginBottom: 15,
     },
     subheading: {
       marginBottom: 100,
     },
     qt: {
-      marginTop: "10px",
-      marginBottom: "20px",
+      marginTop: 10,
+      marginBottom: 20,
+    },
+    qtList: {
+      marginTop: 100,
     },
   })
 );
@@ -32,6 +39,13 @@ function MainPage() {
   const styles = useStyles();
   const history = useHistory();
   const [ createQT ] = useMutation<AddQT>(ADD_QT);
+  const { data } = useQuery<QTs>(QTS);
+  
+  useEffect(() => {
+    
+  }, []);
+
+  // const modifiedDate = Date.parse(data?.qTs?.nodes?.modified);
 
   return (
     <div className={styles.root}>
@@ -44,29 +58,23 @@ function MainPage() {
         </Typography>
         <PassageInput
           onClick={async (passage: string) => {
-            // To be replaced with query logic!
-            console.log(passage);
             try {
               const { data } = await createQT({ variables: { passage }});
-              
               history.push(`/writeQT/?qtId=${data?.addQT.id}`);
-
-              console.log(`id: ${data?.addQT.id!}`);
-              console.log("passage: ", data?.addQT.passage);
-              console.log("passageText: ", data?.addQT.passageText);
             } catch (e) {
               console.log(e);
             }
           }}
         />
-        {/* {data?.qTs?.nodes?.map(qt => (
-          <div className={styles.qt}>
-            <Typography>id: {qt.id}</Typography>
-            <Typography>passage: {qt.passage}</Typography>
-            <Typography>passageText: {qt.passageText}</Typography>
-            <Typography>User name: {qt.user.name}</Typography>
-          </div>
-        ))}; */}
+        <div className={styles.qtList}>
+          {data?.qTs?.nodes?.map(qt => (
+            <QTCard 
+            heading={qt.passage.split("+").join(" ")}
+            subheading={`${qt.user.name}, ${new Date(qt.modified).toLocaleString("en-NZ")}`}
+            content={qt.content === "" ? "No Content" : qt.content}
+            />
+          ))};
+        </div>
       </div>
     </div>
   );

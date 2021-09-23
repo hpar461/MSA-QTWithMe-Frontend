@@ -99,7 +99,7 @@ function PassageInput({ onClick }: IPassageInput) {
           }}
         ></TextField>
 
-        <Typography variant="h4" style={{ marginLeft: 5, marginRight: 5 }}>
+        <Typography variant="h4" style={{ marginLeft: 10, marginRight: 10 }}>
           to
         </Typography>
 

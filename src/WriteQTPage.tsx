@@ -70,8 +70,6 @@ function WriteQTPage() {
     variables: { qtId: `${qtId}`, content: `${content}` },
   });
 
-  const passageRaw: string[] = data?.qT.passage.split("+") ?? ["", ""];
-
   return (
     <div className={styles.root}>
       <Typography variant="h4" className={styles.heading}>
@@ -79,7 +77,7 @@ function WriteQTPage() {
       </Typography>
 
       <Typography variant="h5" className={styles.subheading}>
-        Passage: {passageRaw[0]} {passageRaw[1]}
+        Passage: {data?.qT.passage.split("+").join(" ")}
       </Typography>
 
       <TextField

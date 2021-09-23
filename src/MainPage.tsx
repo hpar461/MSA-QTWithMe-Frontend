@@ -60,6 +60,7 @@ function MainPage() {
               const { data } = await createQT({ variables: { passage }});
               history.push(`/writeQT/?qtId=${data?.addQT.id}`);
             } catch (e) {
+              alert("Not Logged In. Please check these and try again.");
               console.log(e);
             }
           }}

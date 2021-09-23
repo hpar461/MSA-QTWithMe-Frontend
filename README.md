@@ -1,4 +1,4 @@
-# Getting Started with QTWithMe
+# MSA-QTWithMe-Frontend
 
 GitHub Repo for frontend (web app) of QTWithMe for MSA Phase 2 Assignment.
 

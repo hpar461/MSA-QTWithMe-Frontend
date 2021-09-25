@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: "100%",
       marginTop: "auto",
-      minHeight: "50px",
+      minHeight: "60px",
       
       display: "flex",
       flexDirection: "row",
@@ -17,9 +17,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     text: {
       flex: 1,
-      fontSize: "14px",
+      fontSize: "12px",
       color: "#f2f2f2",
       textTransform: "uppercase",
+      lineHeight: "18px",
     }
   })
 );
@@ -30,7 +31,8 @@ function Footer() {
   return (
     <footer className={styles.root}>
       <div className={styles.text}>
-        Copyright © Hyungsang Park, 2021, All Rights Reserved
+        Copyright © Hyungsang Park, 2021, All Rights Reserved.<br />
+        The Holy Bible, English Standard Version ® (ESV ®) Copyright © 2001 by Crossway, All rights reserved.
       </div>
     </footer>
   );
